@@ -1,108 +1,59 @@
-Sentiment Analysis with TF-IDF and Machine Learning
-Overview
-This project implements a sentiment analysis pipeline using various machine learning models and TF-IDF for text feature extraction. The dataset used for training and testing consists of tweets, and the goal is to classify the sentiment of each tweet as either positive or negative.
+# Sentiment Analysis on Tweets
 
-Features
-Data Preprocessing: Handles URL removal, emoji replacement, user mention replacement, and text normalization.
-Feature Extraction: Uses TF-IDF with n-grams for transforming text data into numerical features.
-Model Training: Implements and evaluates three different models:
-Bernoulli Naive Bayes
-Linear Support Vector Classification (SVC)
-Logistic Regression
-Model Evaluation: Provides performance metrics and confusion matrices for the models.
-Model Saving and Loading: Save and load models for later use.
-Prediction: Predicts sentiment for new text inputs.
-Getting Started
-Prerequisites
-Ensure you have Python 3.x installed along with the following libraries:
+This project performs sentiment analysis on a large dataset of tweets, using various machine learning algorithms. The goal is to classify the sentiment of a tweet as either positive or negative. This project implements data preprocessing, feature extraction, and builds models using Logistic Regression, Bernoulli Naive Bayes, and Linear SVC.
 
-numpy
-pandas
-matplotlib
-seaborn
-wordcloud
-nltk
-scikit-learn
-pickle
-You can install the required libraries using pip:
+## Table of Contents
+- [Dataset](#dataset)
+- [Requirements](#requirements)
+- [Data Preprocessing](#data-preprocessing)
+- [Models](#models)
+- [Results](#results)
 
-bash
-Copy code
-pip install numpy pandas matplotlib seaborn wordcloud nltk scikit-learn
-Installation
-Clone the repository:
 
-bash
-Copy code
-git clone https://github.com/yourusername/your-repo.git
-Navigate to the project directory:
+## Dataset
 
-bash
-Copy code
-cd your-repo
-Install the required dependencies:
+The dataset used for this project is the **Sentiment140 dataset** (1.6 million tweets) where:
+- 0 = Negative Sentiment
+- 1 = Positive Sentiment
 
-bash
-Copy code
-pip install -r requirements.txt
-Usage
-Data Preprocessing
+It can be found [here](https://www.kaggle.com/datasets/kazanova/sentiment140).
 
-The script preprocesses the data by:
+## Requirements
 
-Lowercasing the text
-Replacing URLs with the word 'URL'
-Replacing emojis with their meanings
-Removing non-alphanumeric characters
-Reducing consecutive characters
-python
-Copy code
-from preprocessing import preprocess
-processedtext = preprocess(text)
-Training and Evaluating Models
+The following Python libraries are used in this project:
+- numpy
+- pandas
+- matplotlib
+- seaborn
+- wordcloud
+- nltk
+- sklearn
 
-Models are trained using TF-IDF features and evaluated using performance metrics.
+Install the required packages using the following command:
 
-python
-Copy code
-from model import train_and_evaluate_models
 
-train_and_evaluate_models(X_train, y_train, X_test, y_test)
-Saving and Loading Models
+## Data Preprocessing
+### The preprocessing steps include:
 
-Save the trained models and vectorizer for future use:
+- Removing URLs, user mentions, and non-alphabetical characters.
+- Replacing emojis with their meaning using a pre-defined dictionary.
+- Lemmatization using NLTK’s WordNet Lemmatizer.
+- Removal of stopwords.
+- The processed data is then split into training and test sets.
 
-python
-Copy code
-from utils import save_models
+## Models
+### Three models are used to classify the sentiment:
 
-save_models(vectoriser, LRmodel, BNBmodel)
-Load the saved models and vectorizer:
+- Bernoulli Naive Bayes (BNB)
+- Linear Support Vector Classifier (Linear SVC)
+- Logistic Regression (LR)
+- Feature Extraction
+The text data is transformed using TF-IDF vectorization, with n-grams ranging from 1 to 2 and a maximum of 500,000 features.
 
-python
-Copy code
-from utils import load_models
+## Results
+The performance of each model is evaluated using metrics like precision, recall, and F1-score. Below are the accuracies for the models:
 
-vectoriser, LRmodel = load_models()
-Predicting Sentiments
+- Bernoulli Naive Bayes: 80%
+- Linear SVC: 82%
+- Logistic Regression: 83%
 
-Predict sentiments for new text inputs:
-
-python
-Copy code
-from utils import predict
-
-text = ["I hate twitter", "May the Force be with you.", "Mr. Stark, I don't feel so good"]
-predictions = predict(vectoriser, LRmodel, text)
-print(predictions)
-Data
-The dataset used in this project is a large collection of processed tweets:
-
-File: training.1600000.processed.noemoticon.csv
-Columns: sentiment, ids, date, flag, user, text
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-Acknowledgments
-Thanks to the scikit-learn library for providing powerful machine learning tools.
-Inspiration from various sentiment analysis and text processing tutorials.
